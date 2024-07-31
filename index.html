@@ -392,7 +392,7 @@
             document.getElementById("dumpButton").addEventListener("click", function(){
                 if(HasBead) {
                     removeCircles();
-                    weight = Math.random() * 0.01;
+                    weight = Math.random() * 0.1;
                     formattedWeight = weight.toFixed(3);
                     document.getElementById("mass").innerHTML = formattedWeight;
                     HasBead = false;
