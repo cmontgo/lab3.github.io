@@ -142,90 +142,93 @@
     </div>
     <div id="grid">
 
-    <div id="operations">
-        <h4>OPERATIONS</h4>
-        <ol>
-            <li>The SELECT A COLOR dropdown list lets you select the color</li>
-            <li>The DELIVER button adds the selected number of beads for mass measurement.</li>
-            <li>The DUMP BEADS button removes all beads that have been delivered and prepares a new selection of randomly selected beads.</li>
-            <li>The TARE bar resets the balance reading to zero.</li>
-            <li>The INCREASE/DECREASE DELIVERY button increases/decreases the amount deliverable</li>
-        </ol>
+        <div id="operations">
+            <h4>OPERATIONS</h4>
+            <ol>
+                <li>The SELECT A COLOR dropdown list lets you select the color</li>
+                <li>The DELIVER button adds the selected number of beads for mass measurement.</li>
+                <li>The DUMP BEADS button removes all beads that have been delivered and prepares a new selection of randomly selected beads.</li>
+                <li>The TARE bar resets the balance reading to zero.</li>
+                <li>The INCREASE/DECREASE DELIVERY button increases/decreases the amount deliverable</li>
+            </ol>
 
-    </div>
+        </div>
 
     
 
-    <div id="instructions">
-        <h4>MASS MEASUREMENTS</h4>
-        <ol>
-            <li>Select a color</li>
-			<li>Set the count to 1</li>
-            <li>DUMP BEADS.</li>
-            <li>Click on the TARE button on the balance.</li>
-            <li>DELIVER the desired number of beads.</li>
-            <li>Record the balance reading.</li>
-            <li>TARE the balance</li>
-            <li>Repeat steps 1-7, at least 10 times</li>
-        </ol>
-    </div>
+        <div id="instructions">
+            <h4>MASS MEASUREMENTS</h4>
+            <ol>
+                <li>Select a color</li>
+                <li>Set the deliver amount to 1</li>
+                <li>DUMP BEADS.</li>
+                <li>Click on the TARE button on the balance.</li>
+                <li>DELIVER the desired number of beads.</li>
+                <li>Record the balance reading.</li>
+                <li>TARE the balance</li>
+                <li>Repeat steps 1-7, at least 10 times</li>
+            </ol>
+        </div>
 
-    <div id="scale">
-        <svg id="mySVG"width="400px" height="200px">
-            <image x="0" y="0" width="400px" height="200px" xlink:href="scale.jpg" />
+        <div id="scale">
+            <svg id="mySVG"width="400px" height="200px">
+                <image x="0" y="0" width="400px" height="200px" xlink:href="scale.jpg" />
 
-            <!--Measure Weight Button  -->
-            <!--rect x="40px" y="112px" width="75px" height="30px" fill="black" />
-            <text id="massButton" x="50px" y="132px" font-size="18" fill="white">MASS</text-->
+                <!--Measure Weight Button  -->
+                <!--rect x="40px" y="112px" width="75px" height="30px" fill="black" />
+                <text id="massButton" x="50px" y="132px" font-size="18" fill="white">MASS</text-->
 
 
-            <!-- TARE Button  -->
-            <rect x="285px" y="112px" width="75px" height="30px" fill="black" />
-            <text id="tareButton" x="300px" y="132px" font-size="18" fill="white">TARE</text>
+                <!-- TARE Button  -->
+                <rect x="285px" y="112px" width="75px" height="30px" fill="black" />
+                <text id="tareButton" x="300px" y="132px" font-size="18" fill="white">TARE</text>
 
-            <!-- Mass reading button  -->
-            <rect x="140px" y="112px" width="120px" height="30px" fill="Green" />
-            <text  id="mass" x="180px" y="132px" font-size="18" fill="black">0.000</text>
-            <text  id="mass" x="240px" y="132px" font-size="18" fill="black">g</text>
+                <!-- Mass reading button  -->
+                <rect x="140px" y="112px" width="120px" height="30px" fill="Green" />
+                <text  id="mass" x="180px" y="132px" font-size="18" fill="black">0.000</text>
+                <text  id="mass" x="240px" y="132px" font-size="18" fill="black">g</text>
+                
+            </svg>
+
             
-        </svg>
-
-        
-        <div id="buttons">
+            <div id="buttons">
+                
             
-        
-            <select id="colorSelect" class="m-1">
-                <option value="">SELECT A COLOR</option>
-                <option value="PU">1- Purple</option>
-                <option value="YG">2- Yellow-Green</option>
-                <option value="B">3- Blue</option>
-                <option value="BG">4- Blue-Green</option>
-                <option value="P">5- Pink</option>
-                <option value="Y">6- Yellow</option>
-            </select>
+                <select id="colorSelect" class="m-1">
+                    <option value="">SELECT A COLOR</option>
+                    <option value="Purple">Purple</option>
+                    <option value="Yellow-Green">Yellow-Green</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Blue-Green">Blue-Green</option>
+                    <option value="Pink">Pink</option>
+                    <option value="Yellow">Yellow</option>
+                </select>
 
-            <br>
+                <br>
 
 
-            <div class="btn-group custom-btn-group" role="group" aria-label="Button group with nested dropdown">
-                <button type="button" id="deliverButton" class="btn btn-primary">Deliver <span id="deliverValue">10</span></li></button>
-                <button type="button" id="increase" class="btn btn-primary">+</button>
-                <button type="button" id="decrease" class="btn btn-primary">-</button>
-                <button type="button" id="dumpButton" class="btn btn-primary">Dump Beads</button>        
+                <div class="btn-group custom-btn-group" role="group" aria-label="Button group with nested dropdown">
+                    <button type="button" id="deliverButton" class="btn btn-primary">Deliver <span id="deliverValue">10</span></li></button>
+                    <button type="button" id="increase" class="btn btn-primary">+</button>
+                    <button type="button" id="decrease" class="btn btn-primary">-</button>
+                    <button type="button" id="dumpButton" class="btn btn-primary">Dump Beads</button>        
+                    <button type="button" id="resetButton" class="btn btn-danger">Reset</button>
+                </div>
+                
+                
+
+                
+                
             </div>
             
-            
-
-            
-            
+            <div row="2" col="2" class="pt-4">
+                <button id="showBeadsButton" class="btn btn-info mt-3">Show Beads</button>
+            </div>
+        
         </div>
-        
-        
-    
-    </div>
 
-    
-</div>
+        
+    </div>
 <footer>
     <h4>"Based on work by Gary L Bertrand at <a href="https://web.mst.edu/~gbert/beads/beads.html">https://web.mst.edu/~gbert/beads/beads.html</a>"</h4>
 </footer>
@@ -233,178 +236,357 @@
 </body>
 
 <script>
-    
+    let beadSamples = {
+        "Purple": [],
+        "Yellow-Green": [],
+        "Blue": [],
+        "Blue-Green": [],
+        "Pink": [],
+        "Yellow": []
+    };
 
     beads = [{name: "Purple",
-             color: "PU",
+             color: "Purple",
              weight: 0.36100,
              std: 0.08100,
              cssColor: "#9400D3"
              },
              {name: "Yellow-Green",
-             color: "YG",
+             color: "Yellow-Green",
              weight: 0.4500,
              std: 0.10200,
              cssColor: "#9ACD32"
              },
-             {name: "blue",
-             color: "B",
+             {name: "Blue",
+             color: "Blue",
              weight: 0.3800,
              std: 0.08900,
              cssColor: "#0000FF"
              },
              {name:"Blue-Green",
-             color: "BG",
+             color: "Blue-Green",
              weight: 0.4433,
              std: 0.1325,
              cssColor: "#0d98ba"
              },
              {name: "Pink",
-             color: "P",
+             color: "Pink",
              weight: 0.3800,
              std: 0.09121,
              cssColor: "#FFC0CB"
              },
              {name: "Yellow",
-             color: "Y",
+             color: "Yellow",
              weight: 0.4700,
              std: 0.10300,
              cssColor: "#FFFF00"
             }]
 
-            let selectElement = document.getElementById("colorSelect");
-            color = selectElement.value;
-            let weight = Math.random();
-            let deliver = 10;
-            let formattedWeight = weight.toFixed(3);
-            document.getElementById("mass").innerHTML = formattedWeight;
-            let HasBead = false;
+    // Hold the selected colour
+    let selectElement = document.getElementById("colorSelect");
+    color = selectElement.value;
+    // Generate a random weight
+    let weight = Math.random();
+    // Set default weight
+    let deliver = 10;
+    // Ensure 3 decimals
+    let formattedWeight = weight.toFixed(3);
+    // Set mass to formatted random weight
+    document.getElementById("mass").innerHTML = formattedWeight;
+    // Initially declare no beads
+    let HasBead = false;
+    // Boolean for checking if the scale has been tare'd
+    let isTared = false;
+    // Global flag for first color choice
+    let specialColor = null;
 
-            function addCircle(cssColor) {
-                // Create a new circle element
-                var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    // Add circle to scale
+    function addCircle(cssColor) {
+        // Create a new circle element
+        var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
 
-                // Set circle attributes (e.g., radius, position, color)
-                circle.setAttribute("cx", (Math.random() * 130) + 130); // x-coordinate
-                circle.setAttribute("cy", Math.random() * 20 + 35); // y-coordinate
-                circle.setAttribute("r", 5); // radius
-                circle.setAttribute("fill", cssColor); // fill color
-                circle.setAttribute("stroke", "black"); // stroke color
-                circle.setAttribute("opacity", 0); // initial opacity set to 0
-                circle.style.transition = "opacity 0.5s, fill 0.5s"; // transition for opacity and fill
+        // Set circle attributes (e.g., radius, position, color)
+        circle.setAttribute("cx", (Math.random() * 130) + 130); // x-coordinate
+        circle.setAttribute("cy", Math.random() * 20 + 35); // y-coordinate
+        circle.setAttribute("r", 5); // radius
+        circle.setAttribute("fill", cssColor); // fill color
+        circle.setAttribute("stroke", "black"); // stroke color
+        circle.setAttribute("opacity", 0); // initial opacity set to 0
+        circle.style.transition = "opacity 0.5s, fill 0.5s"; // transition for opacity and fill
 
-                // Add the circle to the SVG
-                document.getElementById("mySVG").appendChild(circle);
+        // Add the circle to the SVG
+        document.getElementById("mySVG").appendChild(circle);
 
-                // Trigger fade-in animation after a short delay
-                setTimeout(function () {
-                    circle.setAttribute("opacity", 1);
-                    circle.setAttribute("fill", cssColor); // set fill color after the delay
-                }, 10);
+        // Trigger fade-in animation after a short delay
+        setTimeout(function () {
+            circle.setAttribute("opacity", 1);
+            circle.setAttribute("fill", cssColor); // set fill color after the delay
+        }, 10);
+    }
+
+    // Remove drawn circles
+    function removeCircles() {
+        var svg = document.getElementById("mySVG");
+
+        // Select all circle elements and remove them
+        var circles = svg.querySelectorAll('circle');
+        circles.forEach(function(circle) {
+            svg.removeChild(circle);
+        });
+    }
+
+    // Generate normal random
+    function generateNormalRandom(mean, stdDev, isDifferent) {
+        var isValid = false;
+        var normalRandom;
+
+        // Shift the mean if this is the special bead
+        if (isDifferent) {
+            mean = mean + (1.5 * stdDev);
+        }
+
+        while (!isValid) {
+            var u1 = Math.random();
+            var u2 = Math.random();
+
+            var z0 = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+
+            // Scale and shift the result to the desired mean and standard deviation
+            normalRandom = z0 * stdDev + mean;
+
+            // Check if the generated number falls within 2 standard deviations of the mean
+            if (normalRandom >= mean - 2 * stdDev && normalRandom <= mean + 2 * stdDev) {
+                isValid = true;
+            }
+        }
+
+        return normalRandom;
+    }
+
+    // Increase count to deliver
+    document.getElementById("increase").addEventListener("click", function(){
+        if(deliver < 10) {
+            deliver = deliver + 1;
+            document.getElementById("deliverValue").innerHTML = deliver;
+        }
+    });
+
+    // Decrease count to deliver
+    document.getElementById("decrease").addEventListener("click", function(){
+        if(deliver > 1) {
+            deliver = deliver - 1;
+            document.getElementById("deliverValue").innerHTML = deliver;
+        }
+    });
+
+    // Tare scale
+    document.getElementById("tareButton").addEventListener("click", function(){
+        weight = 0.000;
+        let formattedWeight = weight.toFixed(3);
+        isTared = true;
+        document.getElementById("mass").innerHTML = formattedWeight;
+    });
+
+    // Change selected color
+    document.getElementById("colorSelect").addEventListener("change", function(){
+        color = selectElement.value;
+
+        // Make first color chosen "special"
+        if (specialColor === null && color !== "") {
+            specialColor = color;
+        }
+    });
+
+    // Deliver beads
+    document.getElementById("deliverButton").addEventListener("click",function(){
+        // Check amount to deliver
+        let amount = Number(document.getElementById("deliverValue").textContent);
+
+        // Check if colour is set
+        if(color == "")
+        {
+            alert("You must select a color");
+            return;
+        }
+
+        // Check if a bead exists (Only deliver one at a time)
+        else if (HasBead) {
+            alert("Please dump the current bead before delivering another.");
+            return;
+        }
+
+        // Check if the scale has been tare'd, must be tare'd before each delivery
+        else if (!isTared) {
+            alert("Please tare the scale before delivering a bead!");
+            return;
+        }
+
+        // Ensure only one bead delivered
+        else if(amount > 1) {
+            alert("Only deliver one at a time!");
+            return;
+        }
+        
+        else {
+            // Track if scale has been tared
+            let isTared = false; 
+
+            HasBead = true;
+
+            // Find "this" bead
+            let bead = beads.find(b => b.color === color);
+            if (!bead) {
+                alert("Invalid bead color selected.");
+                return;
             }
 
+            addCircle(bead.cssColor);
 
-            function removeCircles() {
-                var svg = document.getElementById("mySVG");
+            // Generate a single bead weight
+            const isDifferent = (color === specialColor);
+            const randomValue = generateNormalRandom(
+                bead.weight,
+                bead.std,
+                isDifferent
+            );
 
-                // Select all circle elements and remove them
-                var circles = svg.querySelectorAll('circle');
-                circles.forEach(function(circle) {
-                    svg.removeChild(circle);
-                });
+            // Store bead weight
+            beadSamples[color].push(randomValue);
+
+            // Update total mass
+            weight += randomValue;
+
+            // Update display
+            document.getElementById("mass").innerHTML = weight.toFixed(3);
+
+            // Update stats
+            updateStats();
+
+            // Write beads to console
+            for (let color in beadSamples) {
+                let count = beadSamples[color].length;
+                if (count > 0) {
+                    console.log( `${color} Beads (${beadSamples[color].length}):`, beadSamples[color].map(w => w.toFixed(4)) );
+                }
             }
+            
+        }
+    });
+    
+    // Dump beads
+    document.getElementById("dumpButton").addEventListener("click", function () {
+        // Nothing to dump
+        if (!HasBead) {
+            alert("No bead to dump.");
+            return;
+        }
 
-            function generateNormalRandom(mean, stdDev) {
-                var isValid = false;
-                var normalRandom;
+        // Remove bead from scale
+        removeCircles();
 
-                while (!isValid) {
-                    var u1 = Math.random();
-                    var u2 = Math.random();
+        // Set a small random weight on scale
+        weight = Math.random() * 0.1;
+        document.getElementById("mass").innerHTML = weight.toFixed(3);
 
-                    var z0 = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+        // Reset state so another bead can be delivered
+        HasBead = false;
+    });
+    
 
-                    // Scale and shift the result to the desired mean and standard deviation
-                    normalRandom = z0 * stdDev + mean;
+    // Helper function to calculate mean value
+    function calculateMean(values) {
+        // Empty array
+        if (values.length === 0) return 0;
+        // Sum values
+        let sum = values.reduce((a, b) => a + b, 0);
+        let average = sum / values.length;
+        return average;
+    }
 
-                    // Check if the generated number falls within 2 standard deviations of the mean
-                    if (normalRandom >= mean - 2 * stdDev && normalRandom <= mean + 2 * stdDev) {
-                        isValid = true;
-                    }
-                }
+    // Helper function to calculate standard deviation
+    // May need to be fixed
+    function calculateStdDev(values, mean) {
+        // Empty value passed
+        if (values.length < 2) return 0;
+        // Calculate variance
+        let variance = values.reduce((sum, value) => sum + Math.pow(value - mean, 2), 0) / (values.length - 1); 
+        return Math.sqrt(variance);
+    }
 
-                return normalRandom;
+    // Helper function to update mean and standard deviation
+    function updateStats() {
+        // Call helper functions
+        let mean = calculateMean(beadSamples[color]);
+        let stdDev = calculateStdDev(beadSamples[color], mean);
+
+        
+        //document.getElementById("meanWeight").textContent =
+        //    `Mean weight: ${mean.toFixed(4)} g`;
+
+        //document.getElementById("standardDev").textContent =
+        //    `Standard Deviation: ${stdDev.toFixed(4)} g`;
+    }
+
+    // Hook up reset button to resetPage
+    document.getElementById("resetButton").addEventListener("click", resetPage);
+    
+    // Reset page functionality
+    function resetPage() {
+        // Remove beads from scale
+        removeCircles();
+
+        // Reset data
+        beadSamples = {
+            "Purple": [],
+            "Yellow-Green": [],
+            "Blue": [],
+            "Blue-Green": [],
+            "Pink": [],
+            "Yellow": []
+        };
+        weight = Math.random();
+
+        specialColor = null;
+    
+        // Reset UI values
+        document.getElementById("mass").innerHTML = weight.toFixed(3);
+        document.getElementById("deliverValue").innerHTML = "10";
+        deliver = 10;
+
+        //document.getElementById("meanWeight").textContent = "Mean weight:";
+        //document.getElementById("standardDev").textContent = "Standard Deviation:";
+
+        // Reset dropdown
+        document.getElementById("colorSelect").value = "";
+        color = "";
+
+        // Reset state flags
+        HasBead = false;
+    }
+
+    // Show beads button
+    document.getElementById("showBeadsButton").addEventListener("click", function() {
+        let message = "";
+
+        // Loop through each color
+        for (let color in beadSamples) {
+            if (beadSamples[color].length > 0) {
+                message += `${color} Bead weights (${beadSamples[color].length}):\n`;
+                // List the weights rounded to 4 decimals
+                message += beadSamples[color].map(w => w.toFixed(4)).join(", ") + "\n\n";
             }
+        }
 
+        // If no beads yet
+        if (message === "") {
+            message = "No beads have been delivered yet!";
+        }
 
-            document.getElementById("increase").addEventListener("click", function(){
-                if(deliver < 10) {
-                    deliver = deliver + 1;
-                    document.getElementById("deliverValue").innerHTML = deliver;
-                }
-            });
-
-            document.getElementById("decrease").addEventListener("click", function(){
-                if(deliver > 1) {
-                    deliver = deliver - 1;
-                    document.getElementById("deliverValue").innerHTML = deliver;
-                }
-            });
-
-
-            document.getElementById("tareButton").addEventListener("click", function(){
-                weight = 0.000;
-                let formattedWeight = weight.toFixed(3);
-                document.getElementById("mass").innerHTML = formattedWeight;
-            });
-
-            document.getElementById("colorSelect").addEventListener("change", function(){
-                color = selectElement.value;
-            });
-
-            document.getElementById("deliverButton").addEventListener("click",function(){
-                if(color == "")
-                {
-                    alert("You must select a color");
-                }
-                
-                else {
-                    HasBead = true;
-                    index = 0;
-                    for(j = 0; j < beads.length; j++) {
-                        if(beads[j].color == color){
-                            index=j;
-                        }
-                    }
-                    
-                    bead = beads[index];
-                    for(i = 0; i < deliver; i++){
-                        addCircle(bead.cssColor);
-                        //Gets me a random distributed normal value within the beads range
-                        var randomValue = generateNormalRandom(bead.weight, bead.std);
-                        weight = weight + randomValue;
-                    } 
-                    formattedWeight = weight.toFixed(3);
-                    document.getElementById("mass").innerHTML = formattedWeight;
-
-                }
-            });
-
-            document.getElementById("dumpButton").addEventListener("click", function(){
-                if(HasBead) {
-                    removeCircles();
-                    weight = Math.random() * 0.1;
-                    formattedWeight = weight.toFixed(3);
-                    document.getElementById("mass").innerHTML = formattedWeight;
-                    HasBead = false;
-                } 
-                
-            });
-
+        alert(message);
+    });
 
 </script>
 
 </html>
-
 
 
