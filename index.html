@@ -245,41 +245,62 @@
         "Yellow": []
     };
 
+    // Bead definitions for one-sample t-test vs null hypothesis mean of 0.48g
+    // Students collect 10 measurements and test H0: mu = 0.48 at alpha = 0.05 (two-tailed, t_crit = 2.262)
+    //
+    // Significant (should reject H0 — means well below 0.48):
+    //   Purple       mu=0.361  sigma=0.081  expected |t|~4.65
+    //   Blue         mu=0.375  sigma=0.089  expected |t|~3.73
+    //   Pink         mu=0.375  sigma=0.091  expected |t|~3.64
+    //
+    // Not significant (should fail to reject H0 — means close to 0.48):
+    //   Yellow-Green mu=0.455  sigma=0.105  expected |t|~0.75
+    //   Blue-Green   mu=0.448  sigma=0.135  expected |t|~0.75
+    //   Yellow       mu=0.470  sigma=0.103  expected |t|~0.31
+    //
+    // The "significant" flag on each bead is used by the 10th-sample nudge
+    // (see deliver handler) to guarantee the correct t-test outcome.
     beads = [{name: "Purple",
              color: "Purple",
              weight: 0.36100,
              std: 0.08100,
-             cssColor: "#9400D3"
+             cssColor: "#9400D3",
+             significant: true
              },
              {name: "Yellow-Green",
              color: "Yellow-Green",
-             weight: 0.4500,
-             std: 0.10200,
-             cssColor: "#9ACD32"
+             weight: 0.4550,
+             std: 0.10500,
+             cssColor: "#9ACD32",
+             significant: false
              },
              {name: "Blue",
              color: "Blue",
-             weight: 0.3800,
+             weight: 0.3750,
              std: 0.08900,
-             cssColor: "#0000FF"
+             cssColor: "#0000FF",
+             significant: true
              },
              {name:"Blue-Green",
              color: "Blue-Green",
-             weight: 0.4433,
-             std: 0.1325,
-             cssColor: "#0d98ba"
+             weight: 0.4480,
+             std: 0.13500,
+             cssColor: "#0d98ba",
+             significant: false
              },
              {name: "Pink",
              color: "Pink",
-             weight: 0.3800,
+             weight: 0.3750,
              std: 0.09121,
-             cssColor: "#FFC0CB"
+             cssColor: "#FFC0CB",
+             significant: true
              },
              {name: "Yellow",
              color: "Yellow",
              weight: 0.4700,
              std: 0.10300,
-             cssColor: "#FFFF00"
+             cssColor: "#FFFF00",
+             significant: false
             }]
 
     // Hold the selected colour
@@ -297,8 +318,6 @@
     let HasBead = false;
     // Boolean for checking if the scale has been tare'd
     let isTared = false;
-    // Global flag for first color choice
-    let specialColor = null;
 
     // Add circle to scale
     function addCircle(cssColor) {
@@ -336,14 +355,9 @@
     }
 
     // Generate normal random
-    function generateNormalRandom(mean, stdDev, isDifferent) {
+    function generateNormalRandom(mean, stdDev) {
         var isValid = false;
         var normalRandom;
-
-        // Shift the mean if this is the special bead
-        if (isDifferent) {
-            mean = mean + (1.5 * stdDev);
-        }
 
         while (!isValid) {
             var u1 = Math.random();
@@ -390,11 +404,6 @@
     // Change selected color
     document.getElementById("colorSelect").addEventListener("change", function(){
         color = selectElement.value;
-
-        // Make first color chosen "special"
-        if (specialColor === null && color !== "") {
-            specialColor = color;
-        }
     });
 
     // Deliver beads
@@ -428,8 +437,8 @@
         }
         
         else {
-            // Track if scale has been tared
-            let isTared = false; 
+            // Reset tare so student must tare again before next delivery
+            isTared = false;
 
             HasBead = true;
 
@@ -443,12 +452,34 @@
             addCircle(bead.cssColor);
 
             // Generate a single bead weight
-            const isDifferent = (color === specialColor);
-            const randomValue = generateNormalRandom(
-                bead.weight,
-                bead.std,
-                isDifferent
-            );
+            // On the 10th sample, use rejection sampling to ensure the
+            // t-test vs 0.48 gives the expected outcome for this bead
+            let randomValue;
+            const samples = beadSamples[color];
+            if (samples.length === 9 && bead.significant !== undefined) {
+                const NULL_MEAN = 0.48;
+                const T_CRIT = 2.262; // two-tailed, alpha=0.05, df=9
+                let accepted = false;
+                for (let attempt = 0; attempt < 200; attempt++) {
+                    let candidate = generateNormalRandom(bead.weight, bead.std);
+                    let trial = samples.concat(candidate);
+                    let mean = calculateMean(trial);
+                    let stdDev = calculateStdDev(trial, mean);
+                    if (stdDev === 0) continue;
+                    let tStat = Math.abs((mean - NULL_MEAN) / (stdDev / Math.sqrt(10)));
+                    if ((bead.significant && tStat > T_CRIT) ||
+                        (!bead.significant && tStat <= T_CRIT)) {
+                        randomValue = candidate;
+                        accepted = true;
+                        break;
+                    }
+                }
+                if (!accepted) {
+                    randomValue = generateNormalRandom(bead.weight, bead.std);
+                }
+            } else {
+                randomValue = generateNormalRandom(bead.weight, bead.std);
+            }
 
             // Store bead weight
             beadSamples[color].push(randomValue);
@@ -546,8 +577,6 @@
         };
         weight = Math.random();
 
-        specialColor = null;
-    
         // Reset UI values
         document.getElementById("mass").innerHTML = weight.toFixed(3);
         document.getElementById("deliverValue").innerHTML = "10";
@@ -562,6 +591,7 @@
 
         // Reset state flags
         HasBead = false;
+        isTared = false;
     }
 
     // Show beads button
