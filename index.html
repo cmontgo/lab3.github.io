@@ -245,6 +245,21 @@
         "Yellow": []
     };
 
+    // Bead definitions for one-sample t-test vs null hypothesis mean of 0.48g
+    // Students collect 10 measurements and test H0: mu = 0.48 at alpha = 0.05 (two-tailed, t_crit = 2.262)
+    //
+    // Significant (should reject H0 — means well below 0.48):
+    //   Purple       mu=0.361  sigma=0.081  expected |t|~4.65
+    //   Blue         mu=0.375  sigma=0.089  expected |t|~3.73
+    //   Pink         mu=0.375  sigma=0.091  expected |t|~3.64
+    //
+    // Not significant (should fail to reject H0 — means close to 0.48):
+    //   Yellow-Green mu=0.455  sigma=0.105  expected |t|~0.75
+    //   Blue-Green   mu=0.448  sigma=0.135  expected |t|~0.75
+    //   Yellow       mu=0.470  sigma=0.103  expected |t|~0.31
+    //
+    // The "significant" flag on each bead is used by the 10th-sample nudge
+    // (see deliver handler) to guarantee the correct t-test outcome.
     beads = [{name: "Purple",
              color: "Purple",
              weight: 0.36100,
