@@ -297,8 +297,6 @@
     let HasBead = false;
     // Boolean for checking if the scale has been tare'd
     let isTared = false;
-    // Global flag for first color choice
-    let specialColor = null;
 
     // Add circle to scale
     function addCircle(cssColor) {
@@ -336,14 +334,9 @@
     }
 
     // Generate normal random
-    function generateNormalRandom(mean, stdDev, isDifferent) {
+    function generateNormalRandom(mean, stdDev) {
         var isValid = false;
         var normalRandom;
-
-        // Shift the mean if this is the special bead
-        if (isDifferent) {
-            mean = mean + (1.5 * stdDev);
-        }
 
         while (!isValid) {
             var u1 = Math.random();
@@ -390,11 +383,6 @@
     // Change selected color
     document.getElementById("colorSelect").addEventListener("change", function(){
         color = selectElement.value;
-
-        // Make first color chosen "special"
-        if (specialColor === null && color !== "") {
-            specialColor = color;
-        }
     });
 
     // Deliver beads
@@ -428,8 +416,8 @@
         }
         
         else {
-            // Track if scale has been tared
-            let isTared = false; 
+            // Reset tare so student must tare again before next delivery
+            isTared = false;
 
             HasBead = true;
 
@@ -443,11 +431,9 @@
             addCircle(bead.cssColor);
 
             // Generate a single bead weight
-            const isDifferent = (color === specialColor);
             const randomValue = generateNormalRandom(
                 bead.weight,
-                bead.std,
-                isDifferent
+                bead.std
             );
 
             // Store bead weight
@@ -546,8 +532,6 @@
         };
         weight = Math.random();
 
-        specialColor = null;
-    
         // Reset UI values
         document.getElementById("mass").innerHTML = weight.toFixed(3);
         document.getElementById("deliverValue").innerHTML = "10";
@@ -562,6 +546,7 @@
 
         // Reset state flags
         HasBead = false;
+        isTared = false;
     }
 
     // Show beads button
