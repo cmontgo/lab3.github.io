@@ -207,7 +207,7 @@
 
 
                 <div class="btn-group custom-btn-group" role="group" aria-label="Button group with nested dropdown">
-                    <button type="button" id="deliverButton" class="btn btn-primary">Deliver <span id="deliverValue">1</span></li></button>
+                    <button type="button" id="deliverButton" class="btn btn-primary">Deliver <span id="deliverValue">10</span></li></button>
                     <button type="button" id="increase" class="btn btn-primary">+</button>
                     <button type="button" id="decrease" class="btn btn-primary">-</button>
                     <button type="button" id="dumpButton" class="btn btn-primary">Dump Beads</button>        
@@ -309,7 +309,7 @@
     // Generate a random weight
     let weight = Math.random();
     // Set default weight
-    let deliver = 1;
+    let deliver = 10;
     // Ensure 3 decimals
     let formattedWeight = weight.toFixed(3);
     // Set mass to formatted random weight
@@ -570,8 +570,8 @@
 
         // Reset UI values
         document.getElementById("mass").innerHTML = weight.toFixed(3);
-        document.getElementById("deliverValue").innerHTML = "1";
-        deliver = 1;
+        document.getElementById("deliverValue").innerHTML = "10";
+        deliver = 10;
 
         //document.getElementById("meanWeight").textContent = "Mean weight:";
         //document.getElementById("standardDev").textContent = "Standard Deviation:";
