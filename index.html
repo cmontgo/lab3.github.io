@@ -221,7 +221,7 @@
             </div>
             
             <div row="2" col="2" class="pt-4">
-                <button id="showBeadsButton" class="btn btn-info mt-3">Show Beads</button>
+                <!-- <button id="showBeadsButton" class="btn btn-info mt-3">Show Beads</button> -->
                 <p class="mt-2"><small>Deliver 1 bead at a time. Tare, deliver, record, dump. Repeat 10 times per color.</small></p>
             </div>
         
@@ -487,13 +487,13 @@
             // Update stats
             updateStats();
 
-            // Write beads to console
-            for (let color in beadSamples) {
-                let count = beadSamples[color].length;
-                if (count > 0) {
-                    console.log( `${color} Beads (${beadSamples[color].length}):`, beadSamples[color].map(w => w.toFixed(4)) );
-                }
-            }
+            // // Write beads to console
+            // for (let color in beadSamples) {
+            //     let count = beadSamples[color].length;
+            //     if (count > 0) {
+            //         console.log( `${color} Beads (${beadSamples[color].length}):`, beadSamples[color].map(w => w.toFixed(4)) );
+            //     }
+            // }
 
         }
     });
@@ -588,26 +588,26 @@
         isTared = false;
     }
 
-    // Show beads button
-    document.getElementById("showBeadsButton").addEventListener("click", function() {
-        let message = "";
-
-        // Loop through each color
-        for (let color in beadSamples) {
-            if (beadSamples[color].length > 0) {
-                message += `${color} Bead weights (${beadSamples[color].length}):\n`;
-                // List the weights rounded to 4 decimals
-                message += beadSamples[color].map(w => w.toFixed(4)).join(", ") + "\n\n";
-            }
-        }
-
-        // If no beads yet
-        if (message === "") {
-            message = "No beads have been delivered yet!";
-        }
-
-        alert(message);
-    });
+    // // Show beads button
+    // document.getElementById("showBeadsButton").addEventListener("click", function() {
+    //     let message = "";
+    //
+    //     // Loop through each color
+    //     for (let color in beadSamples) {
+    //         if (beadSamples[color].length > 0) {
+    //             message += `${color} Bead weights (${beadSamples[color].length}):\n`;
+    //             // List the weights rounded to 4 decimals
+    //             message += beadSamples[color].map(w => w.toFixed(4)).join(", ") + "\n\n";
+    //         }
+    //     }
+    //
+    //     // If no beads yet
+    //     if (message === "") {
+    //         message = "No beads have been delivered yet!";
+    //     }
+    //
+    //     alert(message);
+    // });
 
 </script>
 
