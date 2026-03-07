@@ -160,13 +160,12 @@
             <h4>MASS MEASUREMENTS</h4>
             <ol>
                 <li>Select a color</li>
-                <li>Set the deliver amount to 1</li>
                 <li>DUMP BEADS.</li>
                 <li>Click on the TARE button on the balance.</li>
-                <li>DELIVER the desired number of beads.</li>
+                <li>DELIVER one bead.</li>
                 <li>Record the balance reading.</li>
                 <li>TARE the balance</li>
-                <li>Repeat steps 1-7, at least 10 times</li>
+                <li>Repeat steps 1-6, at least 10 times</li>
             </ol>
         </div>
 
@@ -223,6 +222,7 @@
             
             <div row="2" col="2" class="pt-4">
                 <button id="showBeadsButton" class="btn btn-info mt-3">Show Beads</button>
+                <p class="mt-2"><small>Deliver 1 bead at a time. Tare, deliver, record, dump. Repeat 10 times per color.</small></p>
             </div>
         
         </div>
@@ -408,9 +408,6 @@
 
     // Deliver beads
     document.getElementById("deliverButton").addEventListener("click",function(){
-        // Check amount to deliver
-        let amount = Number(document.getElementById("deliverValue").textContent);
-
         // Check if colour is set
         if(color == "")
         {
@@ -430,12 +427,6 @@
             return;
         }
 
-        // Ensure only one bead delivered
-        else if(amount > 1) {
-            alert("Only deliver one at a time!");
-            return;
-        }
-        
         else {
             // Reset tare so student must tare again before next delivery
             isTared = false;
