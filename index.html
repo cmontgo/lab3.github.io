@@ -440,43 +440,46 @@
                 return;
             }
 
-            addCircle(bead.cssColor);
+            // Deliver the requested number of beads
+            for (let i = 0; i < deliver; i++) {
+                addCircle(bead.cssColor);
 
-            // Generate a single bead weight
-            // On the 10th sample, use rejection sampling to ensure the
-            // t-test vs 0.48 gives the expected outcome for this bead
-            let randomValue;
-            const samples = beadSamples[color];
-            if (samples.length === 9 && bead.significant !== undefined) {
-                const NULL_MEAN = 0.48;
-                const T_CRIT = 2.262; // two-tailed, alpha=0.05, df=9
-                let accepted = false;
-                for (let attempt = 0; attempt < 200; attempt++) {
-                    let candidate = generateNormalRandom(bead.weight, bead.std);
-                    let trial = samples.concat(candidate);
-                    let mean = calculateMean(trial);
-                    let stdDev = calculateStdDev(trial, mean);
-                    if (stdDev === 0) continue;
-                    let tStat = Math.abs((mean - NULL_MEAN) / (stdDev / Math.sqrt(10)));
-                    if ((bead.significant && tStat > T_CRIT) ||
-                        (!bead.significant && tStat <= T_CRIT)) {
-                        randomValue = candidate;
-                        accepted = true;
-                        break;
+                // Generate a single bead weight
+                // On the 10th sample, use rejection sampling to ensure the
+                // t-test vs 0.48 gives the expected outcome for this bead
+                let randomValue;
+                const samples = beadSamples[color];
+                if (samples.length === 9 && bead.significant !== undefined) {
+                    const NULL_MEAN = 0.48;
+                    const T_CRIT = 2.262; // two-tailed, alpha=0.05, df=9
+                    let accepted = false;
+                    for (let attempt = 0; attempt < 200; attempt++) {
+                        let candidate = generateNormalRandom(bead.weight, bead.std);
+                        let trial = samples.concat(candidate);
+                        let mean = calculateMean(trial);
+                        let stdDev = calculateStdDev(trial, mean);
+                        if (stdDev === 0) continue;
+                        let tStat = Math.abs((mean - NULL_MEAN) / (stdDev / Math.sqrt(10)));
+                        if ((bead.significant && tStat > T_CRIT) ||
+                            (!bead.significant && tStat <= T_CRIT)) {
+                            randomValue = candidate;
+                            accepted = true;
+                            break;
+                        }
                     }
-                }
-                if (!accepted) {
+                    if (!accepted) {
+                        randomValue = generateNormalRandom(bead.weight, bead.std);
+                    }
+                } else {
                     randomValue = generateNormalRandom(bead.weight, bead.std);
                 }
-            } else {
-                randomValue = generateNormalRandom(bead.weight, bead.std);
+
+                // Store bead weight
+                beadSamples[color].push(randomValue);
+
+                // Update total mass
+                weight += randomValue;
             }
-
-            // Store bead weight
-            beadSamples[color].push(randomValue);
-
-            // Update total mass
-            weight += randomValue;
 
             // Update display
             document.getElementById("mass").innerHTML = weight.toFixed(3);
@@ -491,7 +494,7 @@
                     console.log( `${color} Beads (${beadSamples[color].length}):`, beadSamples[color].map(w => w.toFixed(4)) );
                 }
             }
-            
+
         }
     });
     
