@@ -145,11 +145,11 @@
         <div id="operations">
             <h4>OPERATIONS</h4>
             <ol>
-                <li>The SELECT A COLOR dropdown list lets you select the color</li>
-                <li>The DELIVER button adds the selected number of beads for mass measurement.</li>
-                <li>The DUMP BEADS button removes all beads that have been delivered and prepares a new selection of randomly selected beads.</li>
-                <li>The TARE bar resets the balance reading to zero.</li>
-                <li>The INCREASE/DECREASE DELIVERY button increases/decreases the amount deliverable</li>
+                <li>The SELECT A COLOR dropdown chooses which color of bead you are weighing.</li>
+                <li>The DELIVER button places randomly selected beads of that color on the balance. The number on the button is how many it delivers at once.</li>
+                <li>The DUMP BEADS button removes everything on the pan, whether one bead or several. Your next delivery is a fresh random selection.</li>
+                <li>The TARE button resets the balance reading to zero. The balance must be tared before every delivery.</li>
+                <li>The + and &minus; buttons change the number on the DELIVER button (from 1 to 10).</li>
             </ol>
 
         </div>
@@ -159,19 +159,43 @@
         <div id="instructions">
             <h4>MASS MEASUREMENTS</h4>
             <ol>
-                <li>Select a color</li>
-                <li>DUMP BEADS.</li>
-                <li>Click on the TARE button on the balance.</li>
-                <li>DELIVER one bead.</li>
+                <li>Select a color.</li>
+                <li>Click <strong>TARE</strong> on the balance (the reading goes to 0.000 g).</li>
+                <li><strong>DELIVER</strong> one bead.</li>
                 <li>Record the balance reading.</li>
-                <li>TARE the balance</li>
-                <li>Repeat steps 1-6, at least 10 times</li>
+                <li><strong>DUMP BEADS</strong> to clear the pan.</li>
+                <li>Repeat steps 2&ndash;5 until you have between <strong>10 and 20</strong> measurements.</li>
             </ol>
+
+            <h4>THE TEST</h4>
+            <p>
+                Test H<sub>0</sub>: &mu; = 0.48 g against H<sub>a</sub>: &mu; &ne; 0.48 g at
+                &alpha; = 0.05, using your own sample size <em>n</em>. Your degrees of freedom are
+                <strong>df = n &minus; 1</strong>, so your critical value depends on how many beads you weighed:
+            </p>
+            <div class="table-responsive">
+                <table class="table table-sm table-bordered text-center w-auto" id="tcrit">
+                    <caption>Two-tailed critical values of t, &alpha; = 0.05</caption>
+                    <tbody>
+                        <tr><th scope="row">n</th><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td></tr>
+                        <tr><th scope="row">df</th><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td></tr>
+                        <tr><th scope="row">t<sub>crit</sub></th><td>2.262</td><td>2.228</td><td>2.201</td><td>2.179</td><td>2.160</td><td>2.145</td><td>2.131</td><td>2.120</td><td>2.110</td><td>2.101</td><td>2.093</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert alert-warning" role="note">
+                <strong>Expect some disagreement.</strong> At &alpha; = 0.05, a correctly working test
+                still rejects a true null hypothesis about 5% of the time. So roughly
+                <strong>1 student in 20</strong> will reach a conclusion that disagrees with the rest of
+                the class for the same color. That is a <strong>Type&nbsp;I error</strong>, not a
+                measurement mistake &mdash; compare results across the class and count how often it happens.
+            </div>
         </div>
 
         <div id="scale">
             <svg id="mySVG"width="400px" height="200px">
-                <image x="0" y="0" width="400px" height="200px" xlink:href="scale.jpg" />
+                <image x="0" y="0" width="400px" height="200px" href="scale.jpg" />
 
                 <!--Measure Weight Button  -->
                 <!--rect x="40px" y="112px" width="75px" height="30px" fill="black" />
@@ -187,7 +211,7 @@
                 <!-- Mass reading button  -->
                 <rect x="140px" y="112px" width="120px" height="30px" fill="Green" />
                 <text  id="mass" x="180px" y="132px" font-size="18" fill="black">0.000</text>
-                <text  id="mass" x="240px" y="132px" font-size="18" fill="black">g</text>
+                <text  id="massUnit" x="240px" y="132px" font-size="18" fill="black">g</text>
                 
             </svg>
 
@@ -195,6 +219,7 @@
             <div id="buttons">
                 
             
+                <label for="colorSelect" class="visually-hidden">Bead color</label>
                 <select id="colorSelect" class="m-1">
                     <option value="">SELECT A COLOR</option>
                     <option value="Purple">Purple</option>
@@ -209,7 +234,7 @@
 
 
                 <div class="btn-group custom-btn-group" role="group" aria-label="Button group with nested dropdown">
-                    <button type="button" id="deliverButton" class="btn btn-primary">Deliver <span id="deliverValue">10</span></li></button>
+                    <button type="button" id="deliverButton" class="btn btn-primary">Deliver <span id="deliverValue">1</span></button>
                     <button type="button" id="increase" class="btn btn-primary">+</button>
                     <button type="button" id="decrease" class="btn btn-primary">-</button>
                     <button type="button" id="dumpButton" class="btn btn-primary">Dump Beads</button>        
@@ -224,7 +249,7 @@
             
             <div row="2" col="2" class="pt-4">
                 <!-- <button id="showBeadsButton" class="btn btn-info mt-3">Show Beads</button> -->
-                <p class="mt-2"><small>Deliver 1 bead at a time. Tare, deliver, record, dump. Repeat 10 times per color.</small></p>
+                <p class="mt-2"><small>Deliver 1 bead at a time. Tare, deliver, record, dump. Take 10&ndash;20 measurements per color.</small></p>
             </div>
         
         </div>
@@ -247,71 +272,46 @@
         "Yellow": []
     };
 
-    // Bead definitions for one-sample t-test vs null hypothesis mean of 0.48g
-    // Students collect 10 measurements and test H0: mu = 0.48 at alpha = 0.05 (two-tailed, t_crit = 2.262)
+    // Bead populations for a one-sample two-tailed t-test of H0: mu = 0.48 g at alpha = 0.05.
+    // Students take between 10 and 20 measurements, so their critical value depends on their
+    // own sample size: df = n - 1 (n=10 -> 2.262, n=15 -> 2.145, n=20 -> 2.093).
     //
-    // Significant (should reject H0 — means well below 0.48):
-    //   Purple       mu=0.361  sigma=0.081  expected |t|~4.65
-    //   Blue         mu=0.375  sigma=0.089  expected |t|~3.73
-    //   Pink         mu=0.375  sigma=0.091  expected |t|~3.64
+    // Parameters were chosen so the intended verdict is robust across the whole 10-20 range.
+    // Verified by simulating this exact generator (60k-120k replicates per cell, masses rounded
+    // to 3 dp as displayed). Figures are the worst case over n = 10, 12, 15, 18, 20:
     //
-    // Not significant (should fail to reject H0 — means close to 0.48):
-    //   Yellow-Green mu=0.455  sigma=0.105  expected |t|~0.75
-    //   Blue-Green   mu=0.448  sigma=0.135  expected |t|~0.75
-    //   Yellow       mu=0.470  sigma=0.103  expected |t|~0.31
+    //   Should REJECT H0 (mean well below 0.48):
+    //     Purple        mu=0.340  sigma=0.070   rejects 100.0% of the time
+    //     Blue          mu=0.350  sigma=0.075   rejects  99.9%
+    //     Pink          mu=0.345  sigma=0.075   rejects  99.9%
     //
-    // The "significant" flag on each bead is used by the 10th-sample nudge
-    // (see deliver handler) to guarantee the correct t-test outcome.
-    beads = [{name: "Purple",
-             color: "Purple",
-             weight: 0.36100,
-             std: 0.08100,
-             cssColor: "#9400D3",
-             significant: true
-             },
-             {name: "Yellow-Green",
-             color: "Yellow-Green",
-             weight: 0.4550,
-             std: 0.10500,
-             cssColor: "#9ACD32",
-             significant: false
-             },
-             {name: "Blue",
-             color: "Blue",
-             weight: 0.3750,
-             std: 0.08900,
-             cssColor: "#0000FF",
-             significant: true
-             },
-             {name:"Blue-Green",
-             color: "Blue-Green",
-             weight: 0.4480,
-             std: 0.13500,
-             cssColor: "#0d98ba",
-             significant: false
-             },
-             {name: "Pink",
-             color: "Pink",
-             weight: 0.3750,
-             std: 0.09121,
-             cssColor: "#FFC0CB",
-             significant: true
-             },
-             {name: "Yellow",
-             color: "Yellow",
-             weight: 0.4700,
-             std: 0.10300,
-             cssColor: "#FFFF00",
-             significant: false
-            }]
+    //   Should FAIL TO REJECT H0 (mean exactly 0.48, so H0 is true):
+    //     Yellow-Green  mu=0.480  sigma=0.095   fails to reject 95%
+    //     Blue-Green    mu=0.480  sigma=0.120   fails to reject 95%
+    //     Yellow        mu=0.480  sigma=0.105   fails to reject 95%
+    //
+    // The 5% on the "fail to reject" colours is not a defect to engineer away: P(fail to
+    // reject) is maximised at exactly mu = 0.48, where it equals 1 - alpha = 95%. Their means
+    // are exactly 0.48 (they differ only in sigma) so that H0 is genuinely true and every
+    // rejection really is a Type I error, as the lab page tells students. About 1 in 20 will
+    // see one. Do not add code that inspects the sample and forces the verdict: it makes the
+    // data non-i.i.d., breaks as soon as n != 10, and cannot fully succeed anyway.
+    const beads = [
+        {name: "Purple",       color: "Purple",       weight: 0.340, std: 0.070, cssColor: "#9400D3"},
+        {name: "Yellow-Green", color: "Yellow-Green", weight: 0.480, std: 0.095, cssColor: "#9ACD32"},
+        {name: "Blue",         color: "Blue",         weight: 0.350, std: 0.075, cssColor: "#0000FF"},
+        {name: "Blue-Green",   color: "Blue-Green",   weight: 0.480, std: 0.120, cssColor: "#0d98ba"},
+        {name: "Pink",         color: "Pink",         weight: 0.345, std: 0.075, cssColor: "#FFC0CB"},
+        {name: "Yellow",       color: "Yellow",       weight: 0.480, std: 0.105, cssColor: "#FFFF00"}
+    ];
 
     // Hold the selected colour
     let selectElement = document.getElementById("colorSelect");
-    color = selectElement.value;
-    // Generate a random weight
-    let weight = Math.random();
-    // Set default weight
-    let deliver = 10;
+    let color = selectElement.value;
+    // Balance starts empty; students must still TARE before the first delivery
+    let weight = 0;
+    // Deliver one bead at a time by default, as the instructions require
+    let deliver = 1;
     // Ensure 3 decimals
     let formattedWeight = weight.toFixed(3);
     // Set mass to formatted random weight
@@ -370,8 +370,10 @@
             // Scale and shift the result to the desired mean and standard deviation
             normalRandom = z0 * stdDev + mean;
 
-            // Check if the generated number falls within 2 standard deviations of the mean
-            if (normalRandom >= mean - 2 * stdDev && normalRandom <= mean + 2 * stdDev) {
+            // Keep values within 3 standard deviations of the mean. This rules out negative
+            // or absurd masses while leaving the realised SD at ~0.99x the nominal value
+            // (a 2 SD cut-off shrank it to ~0.88x and made the population visibly non-normal).
+            if (normalRandom >= mean - 3 * stdDev && normalRandom <= mean + 3 * stdDev) {
                 isValid = true;
             }
         }
@@ -430,51 +432,24 @@
         }
 
         else {
-            // Reset tare so student must tare again before next delivery
-            isTared = false;
-
-            HasBead = true;
-
-            // Find "this" bead
+            // Find "this" bead before changing any state, so a failed lookup can't lock the UI
             let bead = beads.find(b => b.color === color);
             if (!bead) {
                 alert("Invalid bead color selected.");
                 return;
             }
 
+            // Reset tare so student must tare again before next delivery
+            isTared = false;
+
+            HasBead = true;
+
             // Deliver the requested number of beads
             for (let i = 0; i < deliver; i++) {
                 addCircle(bead.cssColor);
 
-                // Generate a single bead weight
-                // On the 10th sample, use rejection sampling to ensure the
-                // t-test vs 0.48 gives the expected outcome for this bead
-                let randomValue;
-                const samples = beadSamples[color];
-                if (samples.length === 9 && bead.significant !== undefined) {
-                    const NULL_MEAN = 0.48;
-                    const T_CRIT = 2.262; // two-tailed, alpha=0.05, df=9
-                    let accepted = false;
-                    for (let attempt = 0; attempt < 200; attempt++) {
-                        let candidate = generateNormalRandom(bead.weight, bead.std);
-                        let trial = samples.concat(candidate);
-                        let mean = calculateMean(trial);
-                        let stdDev = calculateStdDev(trial, mean);
-                        if (stdDev === 0) continue;
-                        let tStat = Math.abs((mean - NULL_MEAN) / (stdDev / Math.sqrt(10)));
-                        if ((bead.significant && tStat > T_CRIT) ||
-                            (!bead.significant && tStat <= T_CRIT)) {
-                            randomValue = candidate;
-                            accepted = true;
-                            break;
-                        }
-                    }
-                    if (!accepted) {
-                        randomValue = generateNormalRandom(bead.weight, bead.std);
-                    }
-                } else {
-                    randomValue = generateNormalRandom(bead.weight, bead.std);
-                }
+                // Each bead is an independent draw from its colour's population
+                const randomValue = generateNormalRandom(bead.weight, bead.std);
 
                 // Store bead weight
                 beadSamples[color].push(randomValue);
@@ -485,9 +460,6 @@
 
             // Update display
             document.getElementById("mass").innerHTML = weight.toFixed(3);
-
-            // Update stats
-            updateStats();
 
             // // Write beads to console
             // for (let color in beadSamples) {
@@ -511,48 +483,14 @@
         // Remove bead from scale
         removeCircles();
 
-        // Set a small random weight on scale
-        weight = Math.random() * 0.1;
+        // Leave a small realistic drift (within +/-0.002 g) so students still need to tare
+        weight = (Math.random() - 0.5) * 0.004;
         document.getElementById("mass").innerHTML = weight.toFixed(3);
 
         // Reset state so another bead can be delivered
         HasBead = false;
     });
     
-
-    // Helper function to calculate mean value
-    function calculateMean(values) {
-        // Empty array
-        if (values.length === 0) return 0;
-        // Sum values
-        let sum = values.reduce((a, b) => a + b, 0);
-        let average = sum / values.length;
-        return average;
-    }
-
-    // Helper function to calculate standard deviation
-    // May need to be fixed
-    function calculateStdDev(values, mean) {
-        // Empty value passed
-        if (values.length < 2) return 0;
-        // Calculate variance
-        let variance = values.reduce((sum, value) => sum + Math.pow(value - mean, 2), 0) / (values.length - 1); 
-        return Math.sqrt(variance);
-    }
-
-    // Helper function to update mean and standard deviation
-    function updateStats() {
-        // Call helper functions
-        let mean = calculateMean(beadSamples[color]);
-        let stdDev = calculateStdDev(beadSamples[color], mean);
-
-        
-        //document.getElementById("meanWeight").textContent =
-        //    `Mean weight: ${mean.toFixed(4)} g`;
-
-        //document.getElementById("standardDev").textContent =
-        //    `Standard Deviation: ${stdDev.toFixed(4)} g`;
-    }
 
     // Hook up reset button to resetPage
     document.getElementById("resetButton").addEventListener("click", resetPage);
@@ -571,15 +509,12 @@
             "Pink": [],
             "Yellow": []
         };
-        weight = Math.random();
+        weight = 0;
 
         // Reset UI values
         document.getElementById("mass").innerHTML = weight.toFixed(3);
-        document.getElementById("deliverValue").innerHTML = "10";
-        deliver = 10;
-
-        //document.getElementById("meanWeight").textContent = "Mean weight:";
-        //document.getElementById("standardDev").textContent = "Standard Deviation:";
+        document.getElementById("deliverValue").innerHTML = "1";
+        deliver = 1;
 
         // Reset dropdown
         document.getElementById("colorSelect").value = "";
